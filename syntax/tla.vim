@@ -356,8 +356,8 @@ function! TLA_InitMenus ()
   exe "amenu  ".s:Operator.'.&Infix\ operators<Tab>.\\gg       :call TLA_InsertTemplate("operator.slash-gg")<CR>'
   exe "amenu  ".s:Operator.'.&Infix\ operators<Tab>.<:       :call TLA_InsertTemplate("operator.less-colon")<CR>'
   exe "amenu  ".s:Operator.'.&Infix\ operators<Tab>.>:       :call TLA_InsertTemplate("operator.greater-colon")<CR>'
-  exe "amenu  ".s:Operator.'.&Infix\ operators<Tab>.\ &       :call TLA_InsertTemplate("operator.and")<CR>'
-  exe "amenu  ".s:Operator.'.&Infix\ operators<Tab>.\ &&       :call TLA_InsertTemplate("operator.and-and")<CR>'
+  exe "amenu  ".s:Operator.'.&Infix\ operators<Tab>.\&&       :call TLA_InsertTemplate("operator.and")<CR>'
+  exe "amenu  ".s:Operator.'.&Infix\ operators<Tab>.&&&&&       :call TLA_InsertTemplate("operator.and-and")<CR>'
   exe "amenu  ".s:Operator.'.&Infix\ operators<Tab>.\\sqsubset       :call TLA_InsertTemplate("operator.slash-sqsubset")<CR>'
   exe "amenu  ".s:Operator.'.&Infix\ operators<Tab>.\\sqsupset       :call TLA_InsertTemplate("operator.slash-sqsupset")<CR>'
   exe "amenu  ".s:Operator.'.&Infix\ operators<Tab>.\\sqsubseteq       :call TLA_InsertTemplate("operator.slash-sqsubseteq")<CR>'
@@ -773,6 +773,7 @@ function! TLA_Tla2sany()
   " update : write source file if necessary
   exec	":update"
   " run tla2sany.SANY  
+  " exec	":!java -cp ".g:TLA_PATH." tla2sany.SANY  ".s:TLA_Tla2SanyCmdLineArgs." %:r"	
   exec	":!java -cp ".g:TLA_PATH." tla2sany.SANY  ".s:TLA_Tla2SanyCmdLineArgs." %<"	
 endfunction    " ----------  end of function TLA_Tla2sany----------
 
@@ -789,6 +790,7 @@ function! TLA_Tlc2()
   " update : write source file if necessary
   exec	":update"
   " run tlc2.TLC  
+  " exec	":!java -cp ".g:TLA_PATH." tlc2.TLC  ".s:TLA_Tlc2CmdLineArgs." %:r"	
   exec	":!java -cp ".g:TLA_PATH." tlc2.TLC  ".s:TLA_Tlc2CmdLineArgs." %<"	
 endfunction    " ----------  end of function TLA_Tlc2----------
 
@@ -804,6 +806,7 @@ function! TLA_PcalTrans()
   " update : write source file if necessary
   exec	":update"
   " run pcal.trans
+  " exec	":!java -cp ".g:TLA_PATH." pcal.trans ".s:TLA_PcalTransCmdLineArgs ." %:r"	
   exec	":!java -cp ".g:TLA_PATH." pcal.trans ".s:TLA_PcalTransCmdLineArgs ." %<"	
 endfunction    " ----------  end of function TLA_PcalTrans----------
 
@@ -817,8 +820,7 @@ function! TLA_Tla2Tex()
   " " !java tla2tex.TLA -latexCommand pdflatex -ptSize 12 % 
   exec	":!java -cp ".g:TLA_PATH." tla2tex.TLA -latexCommand pdflatex ".s:TLA_Tla2TexCmdLineArgs." %"
   if s:MSWIN
-     " !cd %:p:h 
-   !AcroRd32  %:p:r.pdf 
+    silent !AcroRd32  %:p:r.pdf 
   else
     silent !evince %:r.pdf &
   endif
